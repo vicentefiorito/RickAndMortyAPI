@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { useEffect,useState } from 'react';
+import Card from './components/Card';
 
 export default function App() {
   //https://rickandmortyapi.com/api/character/?page=1
@@ -23,19 +24,19 @@ export default function App() {
 
   if(data !== null) {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text style={styles.text}>Rick And Morty API</Text>
-  
+        <View>
+        <ScrollView contentContainerStyle={{minHeight: 900, paddingVertical:24}}>
         {data.map((item,index) => {
           return (
-            <Text style={styles.text} key={index}>
-           {item.name} 
-            </Text>
+            <Card style={styles.text} key={index} data={item}/>
           )
         })}
-  
+        </ScrollView>
+        </View>
         <StatusBar style="auto" />
-      </View>
+      </SafeAreaView>
     );
   } else {
     return(
@@ -49,14 +50,15 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'teal',
+    backgroundColor: 'white',
     color: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 24,
+    minHeight: 900,
   },
 
   text: {
-    color: 'white'
+    color: 'black'
   }
 });
