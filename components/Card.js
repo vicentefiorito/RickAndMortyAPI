@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      backgroundColor: 'blue',
+      backgroundColor: 'white',
       color: 'white',
       alignItems: 'center',
       justifyContent: 'center',
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
       padding: 8,
       ...Platform.select({
         ios: {
-          shadowColor: "black",
+          shadowColor: "teal",
           shadowOpacity: 0.8,
           shadowRadius: 5,
           shadowOffset: {
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         width: 66,
         height: 58,
         borderRadius: 8,
-        
+
       },
      
    imgContainer: {
