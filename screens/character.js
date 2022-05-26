@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 
 function Character({ route }) {
@@ -17,14 +17,20 @@ function Character({ route }) {
     const req = await fetch(
       `https://rickandmortyapi.com/api/character/${data.id}`
     );
-    const res = await res.json();
+    const res = await req.json();
     console.log(res);
+    await setChar(res);
   }
 
   if (char !== null) {
     return (
-      <View>
-        <Text>Character</Text>
+      <View style={styles.container}>
+        <Text style={styles.charName}>{char.name} </Text>
+        <Text>{char.gender}</Text>
+        <Text>{char.location.name}</Text>
+        <Image source={{uri: char.image}} style={styles.logo}/>
+        <Text>Species:{char.species}</Text>
+        <Text>Status: {char.status}</Text>
       </View>
     );
   } else {
@@ -43,6 +49,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+  },
+  charName: {
+      flex: 1,
+      textAlign:"left",
+      color: "violet",
+      marginTop: 32,
+      paddingVertical: 8,
+      fontSize:32
+
+
+  },
+  logo: {
+    flex: 5,
+    width: "135%",
+    height:"60%",
+    alignItems:"flex-end",
+    paddingLeft: 8
   },
 });
