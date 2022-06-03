@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 import React from "react";
-import { ScrollView } from "react-native-gesture-handler";
 
 function Character({ route }) {
   //
@@ -25,18 +24,17 @@ function Character({ route }) {
 
   if (char !== null) {
     return (
-      <ScrollView>
+      
         <View style={styles.container}>
         <ImageBackground source={{ uri: char.image }} style={styles.img} resizeMode="cover">
           <Text style={styles.charName}>{char.name} </Text>
           <Text style={styles.info}>General Info:</Text>
-          <Text>Gender: {char.gender}</Text>
-          <Text>Favorite Place: {char.location.name}</Text>
-          <Text>Species:{char.species}</Text>
+          <Text style={styles.misc}>Gender: {char.gender}</Text>
+          <Text style={styles.misc}>Favorite Place: {char.location.name}</Text>
+          <Text style={styles.misc}>Species:{char.species}</Text>
           <Text>Status: {char.status}</Text>
           </ImageBackground>
         </View>
-      </ScrollView>
     );
   } else {
     return (
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
   },
 
   info: {
-    flex:2,
+    flex:1,
     color: "cyan",
     fontSize: 32,
   },
@@ -73,5 +71,9 @@ const styles = StyleSheet.create({
   },
   img: {
    flex:1,
+   justifyContent:"center",
   },
+  misc: {
+    color: 'white',
+  }
 });
