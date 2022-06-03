@@ -27,13 +27,14 @@ function Character({ route }) {
     return (
       <ScrollView>
         <View style={styles.container}>
-        <ImageBackground source={{ uri: char.image }} style={styles.img} resizeMode="cover" />
+        <ImageBackground source={{ uri: char.image }} style={styles.img} resizeMode="cover">
           <Text style={styles.charName}>{char.name} </Text>
           <Text style={styles.info}>General Info:</Text>
           <Text>Gender: {char.gender}</Text>
           <Text>Favorite Place: {char.location.name}</Text>
           <Text>Species:{char.species}</Text>
           <Text>Status: {char.status}</Text>
+          </ImageBackground>
         </View>
       </ScrollView>
     );
@@ -72,6 +73,5 @@ const styles = StyleSheet.create({
   },
   img: {
    flex:1,
-   justifyContent:"center"
   },
 });
