@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, ImageBackground, Alert, Modal, TouchableOpacity } from "react-native";
-import {LinearGradient} from "expo-linear-gradient";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  Alert,
+  Modal,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import * as Speech from "expo-speech";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -10,7 +20,8 @@ function Character({ route }) {
   //
   const { data } = route.params;
   const [char, setChar] = useState(null);
-  const [modalVisible,setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [episodeResult, setEpisodeResult] = useState([]);
   // console.log(navigation);
 
   useEffect(() => {
@@ -24,6 +35,16 @@ function Character({ route }) {
     const res = await req.json();
     console.log(res);
     await setChar(res);
+  }
+
+  async function episodeShow() {
+    // const setModalVisible(!modalVisible)
+    const holdForNow = "";
+    const req = await fetch(`https://rickandmortyapi.com/api/episode`);
+    const res = await req.json();
+    console.log("-->", res.episodes);
+    await setEpisodeResult(res.results);
+    await setModalVisible(true);
   }
 
   if (char !== null) {
@@ -79,7 +100,38 @@ function Character({ route }) {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <Text style={styles.modalText}>Hello World!</Text>
+                <Text style={styles.modalText}>Appearances</Text>
+                <ScrollView
+                  contentContainerStyle={{
+                    // flex: 1,
+                    minHeight: 900,
+                    paddingVertical: 24,
+                    borderColor: "violet",
+                    minWidth: "70%",
+                    borderWidth: 8,
+                  }}
+                >
+                  {episodeResult !== [] ? (
+                    <>
+                      <Text>Episodes</Text>
+                      {episodeResult.map((item, index) => {
+                        return (
+                          <Text
+                            style={{
+                              padding: 8,
+                              minWidth: 24,
+                              minHeight: 24,
+                              borderWidth: 1,
+                              borderColor: "red",
+                            }}
+                          >
+                            {item.air_date}
+                          </Text>
+                        );
+                      })}
+                    </>
+                  ) : null}
+                </ScrollView>
                 <TouchableOpacity
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}
@@ -179,10 +231,10 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    flex:1,
+    flex: 1,
     margin: 16,
-    width:'90%',
-    alignSelf:'center',
+    width: "90%",
+    alignSelf: "center",
     backgroundColor: "white",
     borderRadius: 20,
     padding: 16,
@@ -217,4 +269,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
